@@ -1,7 +1,7 @@
 let gameState = {
   board: [],
-  // activePlayer: 1,
-  // status: true,
+  activePlayer: 1,
+  status: true,
 };
 
 const boardCreator = (function () {
@@ -21,9 +21,11 @@ function createPlayer(name, token) {
   return {
     name,
     token,
-    addToken(row, col) {
-      gameState.board[row - 1][col - 1] ||= token;
-      updateBoard();
+    choice(cell) {
+      const row = cell[0] - 1;
+      const col = cell[1] - 1;
+      gameState.board[row][col] ||= token;
+      // updateBoard();
     },
   };
 }
@@ -31,6 +33,50 @@ function createPlayer(name, token) {
 const player1 = createPlayer("Jack", "X");
 const player2 = createPlayer("Bobby", "O");
 
-player1.addToken(2, 2);
-player2.addToken(3, 3);
-player1.addToken(3, 3);
+// player1.choice("22");
+// player2.choice("33");
+// player1.choice("33");
+
+function getChoice() {
+  if (gameState.activePlayer === 1) {
+    const selectedCell = prompt(
+      `It's your turn ${player1.name}, what's your choice?`
+    );
+    player1.choice(selectedCell);
+    // gameState.activePlayer = 2;
+  }
+}
+
+function hasWinner(token) {
+  const c11 = gameState.board[0][0];
+  const c12 = gameState.board[0][1];
+  const c13 = gameState.board[0][2];
+  const c21 = gameState.board[1][0];
+  const c22 = gameState.board[1][1];
+  const c23 = gameState.board[1][2];
+  const c31 = gameState.board[2][0];
+  const c32 = gameState.board[2][1];
+  const c33 = gameState.board[2][2];
+
+  function checkLines(line) {
+    if (line.every((c) => c === token)) {
+      gameState.status = false;
+      alert("win!");
+    }
+  }
+
+  checkLines([c11, c12, c13]);
+  checkLines([c21, c22, c23]);
+  checkLines([c31, c32, c33]);
+  checkLines([c11, c21, c31]);
+  checkLines([c12, c22, c32]);
+  checkLines([c13, c23, c33]);
+  checkLines([c11, c22, c33]);
+  checkLines([c13, c22, c31]);
+}
+
+while (gameState.status) {
+  getChoice();
+  hasWinner("X");
+  updateBoard();
+}
