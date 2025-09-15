@@ -99,8 +99,12 @@ function getChoice() {
   activePlayer().choice(selectedCell);
 }
 
-while (gameState.status) {
-  getChoice();
-  updateBoard();
-  hasWinner();
+function playGame() {
+  while (gameState.status) {
+    getChoice();
+    updateBoard();
+    hasWinner();
+  }
 }
+
+// playGame();

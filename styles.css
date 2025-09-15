@@ -1,0 +1,62 @@
+body {
+  background-color: #262626;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: Roboto;
+}
+
+h1 {
+  margin: 30px;
+  font-size: 2.5rem;
+  color: lightgray;
+}
+
+h2 {
+  margin: 5px 0 40px 0;
+  color: lightgray;
+  font-size: 2rem;
+}
+
+.cell {
+  font-size: 60px;
+  border: 2px solid lightgray;
+  border-radius: 8px;
+  background-color: #262626;
+  color: lightgray;
+  transition: border-color 0.3s ease-in-out;
+}
+
+.cell:hover {
+  border: 2px solid dodgerblue;
+}
+
+.cell:active {
+  background-color: #072849;
+}
+
+#game-board {
+  display: grid;
+  grid-template: repeat(3, 120px) / repeat(3, 120px);
+  gap: 8px;
+}
+
+.restart-btn {
+  margin-top: 50px;
+  border: 2px solid lightgray;
+  border-radius: 5px;
+  background-color: #262626;
+  color: lightgray;
+  font-size: 20px;
+  width: 140px;
+  height: 35px;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.restart-btn:hover {
+  background-color: #363636;
+}
+
+.restart-btn:active {
+  background-color: #575757;
+}
