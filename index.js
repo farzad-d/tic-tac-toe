@@ -38,31 +38,58 @@ function activePlayer() {
 }
 
 function hasWinner() {
-  const c11 = gameState.board[0][0];
-  const c12 = gameState.board[0][1];
-  const c13 = gameState.board[0][2];
-  const c21 = gameState.board[1][0];
-  const c22 = gameState.board[1][1];
-  const c23 = gameState.board[1][2];
-  const c31 = gameState.board[2][0];
-  const c32 = gameState.board[2][1];
-  const c33 = gameState.board[2][2];
+  const lines = [
+    [
+      [0, 0],
+      [0, 1],
+      [0, 2],
+    ],
+    [
+      [1, 0],
+      [1, 1],
+      [1, 2],
+    ],
+    [
+      [2, 0],
+      [2, 1],
+      [2, 2],
+    ],
+    [
+      [0, 0],
+      [1, 0],
+      [2, 0],
+    ],
+    [
+      [0, 1],
+      [1, 1],
+      [2, 1],
+    ],
+    [
+      [0, 2],
+      [1, 2],
+      [2, 2],
+    ],
+    [
+      [0, 0],
+      [1, 1],
+      [2, 2],
+    ],
+    [
+      [0, 2],
+      [1, 1],
+      [2, 0],
+    ],
+  ];
 
-  function checkLines(line) {
-    if (line.every((c) => c === activePlayer().token)) {
-      gameState.status = false;
-      alert(`You won ${activePlayer().name}!`);
-    }
+  const checkLines = () =>
+    lines.some((line) =>
+      line.every(([x, y]) => gameState.board[x][y] === activePlayer().token)
+    );
+
+  if (checkLines()) {
+    gameState.status = false;
+    alert(`You won ${activePlayer().name}!`);
   }
-
-  checkLines([c11, c12, c13]);
-  checkLines([c21, c22, c23]);
-  checkLines([c31, c32, c33]);
-  checkLines([c11, c21, c31]);
-  checkLines([c12, c22, c32]);
-  checkLines([c13, c23, c33]);
-  checkLines([c11, c22, c33]);
-  checkLines([c13, c22, c31]);
 
   gameState.turn = gameState.turn === 1 ? 2 : 1;
 }
