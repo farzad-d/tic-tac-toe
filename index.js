@@ -13,28 +13,27 @@ const boardCreator = (function () {
   }
 })();
 
-function updateBoard() {
-  console.log(gameState.board);
-}
-
 function createPlayer(name, token) {
   return {
     name,
     token,
-    choice(cell) {
-      const row = cell[0] - 1;
-      const col = cell[1] - 1;
-      gameState.board[row][col] ||= token;
+    choice([x, y]) {
+      gameState.board[x][y] ||= token;
     },
   };
 }
 
-const player1 = createPlayer("Jack", "X");
-const player2 = createPlayer("Bobby", "O");
+const player1 = createPlayer("Jack", "⨯");
+const player2 = createPlayer("Bobby", "〇");
 
 function activePlayer() {
   if (gameState.turn === 1) return player1;
   if (gameState.turn === 2) return player2;
+}
+
+function getChoice(selectedCell) {
+  // const selectedCell = prompt(`${activePlayer().name}, your move:`);
+  activePlayer().choice(selectedCell);
 }
 
 function hasWinner() {
@@ -94,17 +93,40 @@ function hasWinner() {
   gameState.turn = gameState.turn === 1 ? 2 : 1;
 }
 
-function getChoice() {
-  const selectedCell = prompt(`${activePlayer().name}, your move:`);
-  activePlayer().choice(selectedCell);
+// function playGame() {
+//   while (gameState.status) {
+//     getChoice();
+//     updateBoard();
+//     hasWinner();
+//   }
+// }
+
+// ### DOM ###
+
+const gameBoard = document.getElementById("game-board");
+
+gameState.board.forEach((row, rowIndex) => {
+  row.forEach((cell, cellIndex) => {
+    const cellBtn = document.createElement("button");
+    cellBtn.classList.add("cell");
+    cellBtn.dataset.coordination = `${rowIndex}${cellIndex}`;
+    gameBoard.appendChild(cellBtn);
+  });
+});
+
+const cellBtns = document.querySelectorAll(".cell");
+
+function updateBoard() {
+  const flatBoard = gameState.board.flat();
+  cellBtns.forEach((btn, i) => (btn.textContent = flatBoard[i]));
 }
 
-function playGame() {
-  while (gameState.status) {
-    getChoice();
-    updateBoard();
-    hasWinner();
-  }
+function gameAction(choice) {
+  getChoice(choice);
+  updateBoard();
+  hasWinner();
 }
 
-// playGame();
+gameBoard.addEventListener("click", (e) => {
+  gameAction(e.target.dataset.coordination);
+});

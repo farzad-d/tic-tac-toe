@@ -37,6 +37,7 @@ h2 {
 
 #game-board {
   display: grid;
+  grid-auto-flow: column;
   grid-template: repeat(3, 120px) / repeat(3, 120px);
   gap: 8px;
 }
@@ -50,13 +51,13 @@ h2 {
   font-size: 20px;
   width: 140px;
   height: 35px;
-  transition: background-color 0.3s ease-in-out;
+  transition: border-color 0.3s ease-in-out;
 }
 
 .restart-btn:hover {
-  background-color: #363636;
+  border-color: orangered;
 }
 
 .restart-btn:active {
-  background-color: #575757;
+  background-color: #5f1900;
 }
