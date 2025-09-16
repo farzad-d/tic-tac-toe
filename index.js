@@ -115,7 +115,7 @@ function updateBoard() {
 function gameMessage() {
   const message = document.querySelector("h2");
   if (gameState.status) {
-    message.textContent = `${activePlayer().name}, your move:`;
+    message.textContent = `${activePlayer().name}, your move`;
   } else {
     message.classList.add("win");
     message.textContent = `You won ${activePlayer().name}!`;
@@ -129,8 +129,11 @@ function gameAction(choice) {
   updateBoard();
 }
 
-gameBoard.addEventListener("click", (e) => {
-  gameAction(e.target.dataset.coordination);
+gameBoard.addEventListener("click", (event) => {
+  gameAction(event.target.dataset.coordination);
+  event.target.disabled = true;
+  event.target.style.borderColor = "gray";
+  event.target.style.backgroundColor = "#262626";
 });
 
 updateBoard();
