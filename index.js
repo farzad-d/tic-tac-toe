@@ -32,7 +32,6 @@ function activePlayer() {
 }
 
 function getChoice(selectedCell) {
-  // const selectedCell = prompt(`${activePlayer().name}, your move:`);
   activePlayer().choice(selectedCell);
 }
 
@@ -87,19 +86,10 @@ function hasWinner() {
 
   if (checkLines()) {
     gameState.status = false;
-    alert(`You won ${activePlayer().name}!`);
+  } else {
+    gameState.turn = gameState.turn === 1 ? 2 : 1;
   }
-
-  gameState.turn = gameState.turn === 1 ? 2 : 1;
 }
-
-// function playGame() {
-//   while (gameState.status) {
-//     getChoice();
-//     updateBoard();
-//     hasWinner();
-//   }
-// }
 
 // ### DOM ###
 
@@ -119,14 +109,28 @@ const cellBtns = document.querySelectorAll(".cell");
 function updateBoard() {
   const flatBoard = gameState.board.flat();
   cellBtns.forEach((btn, i) => (btn.textContent = flatBoard[i]));
+  gameMessage();
+}
+
+function gameMessage() {
+  const message = document.querySelector("h2");
+  if (gameState.status) {
+    message.textContent = `${activePlayer().name}, your move:`;
+  } else {
+    message.classList.add("win");
+    message.textContent = `You won ${activePlayer().name}!`;
+  }
 }
 
 function gameAction(choice) {
+  if (!gameState.status) return;
   getChoice(choice);
-  updateBoard();
   hasWinner();
+  updateBoard();
 }
 
 gameBoard.addEventListener("click", (e) => {
   gameAction(e.target.dataset.coordination);
 });
+
+updateBoard();

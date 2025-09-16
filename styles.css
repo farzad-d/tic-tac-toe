@@ -18,6 +18,10 @@ h2 {
   font-size: 2rem;
 }
 
+.win {
+  color: limegreen;
+}
+
 .cell {
   font-size: 60px;
   border: 2px solid lightgray;
