@@ -136,4 +136,11 @@ gameBoard.addEventListener("click", (event) => {
   event.target.style.backgroundColor = "#262626";
 });
 
+const restartBtn = document.getElementById("restart-btn");
+const closeDialogBtn = document.getElementById("close-dialog");
+const createPlayerDialog = document.getElementById("create-player-dialog");
+
+restartBtn.addEventListener("click", () => createPlayerDialog.showModal());
+closeDialogBtn.addEventListener("click", () => createPlayerDialog.close());
+
 updateBoard();

@@ -18,6 +18,74 @@
     <h1>Tic Tac Toe</h1>
     <h2></h2>
     <div id="game-board"></div>
-    <button class="restart-btn">Restart</button>
+    <button id="restart-btn">Restart</button>
+
+    <dialog id="create-player-dialog" closedby="any">
+      <button id="close-dialog">✖</button>
+      <form action="#" method="dialog">
+        <div class="name-field">
+          <label for="p1">Player 1:</label>
+          <input
+            type="text"
+            name="p1"
+            id="p1"
+            minlength="1"
+            maxlength="20"
+            value="Player 1"
+            size="20"
+            autofocus
+            onfocus="this.select()"
+            required
+          />
+        </div>
+        <div class="tokens">
+          <input type="radio" name="p1-token" id="x" value="⨯" checked />
+          <label class="token-label" for="x">⨯</label>
+
+          <input type="radio" name="p1-token" id="red-circle" value="🔴" />
+          <label class="token-label" for="red-circle">🔴</label>
+
+          <input type="radio" name="p1-token" id="lion" value="🦁" />
+          <label class="token-label" for="lion">🦁</label>
+
+          <input type="radio" name="p1-token" id="apple" value="🍎" />
+          <label class="token-label" for="apple">🍎</label>
+
+          <input type="radio" name="p1-token" id="soccer" value="⚽" />
+          <label class="token-label" for="soccer">⚽</label>
+        </div>
+
+        <div class="name-field">
+          <label for="p2">Player 2:</label>
+          <input
+            type="text"
+            name="p2"
+            id="p2"
+            minlength="1"
+            maxlength="20"
+            value="Player 2"
+            size="20"
+            required
+          />
+        </div>
+        <div class="tokens">
+          <input type="radio" name="p2-token" id="o" value="〇" checked />
+          <label class="token-label" for="o">〇</label>
+
+          <input type="radio" name="p2-token" id="blue-circle" value="🔵" />
+          <label class="token-label" for="blue-circle">🔵</label>
+
+          <input type="radio" name="p2-token" id="tiger" value="🐯" />
+          <label class="token-label" for="tiger">🐯</label>
+
+          <input type="radio" name="p2-token" id="pear" value="🍐" />
+          <label class="token-label" for="pear">🍐</label>
+
+          <input type="radio" name="p2-token" id="basketball" value="🏀" />
+          <label class="token-label" for="basketball">🏀</label>
+        </div>
+        <button type="submit" id="start-btn">Start</button>
+      </form>
+    </dialog>
   </body>
 </html>

@@ -46,22 +46,136 @@ h2 {
   gap: 8px;
 }
 
-.restart-btn {
+#restart-btn {
   margin-top: 50px;
   border: 2px solid lightgray;
   border-radius: 5px;
   background-color: #262626;
   color: lightgray;
   font-size: 20px;
+  font-weight: bold;
   width: 140px;
-  height: 35px;
+  height: 38px;
   transition: border-color 0.3s ease-in-out;
 }
 
-.restart-btn:hover {
+#restart-btn:hover {
   border-color: orangered;
 }
 
-.restart-btn:active {
+#restart-btn:active {
   background-color: #5f1900;
+}
+
+#create-player-dialog {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 300px;
+  height: 480px;
+  font-size: 20px;
+  background-color: #262626;
+  color: lightgray;
+  border: 3px solid lightgray;
+  border-radius: 8px;
+}
+
+#create-player-dialog::backdrop {
+  background-color: black;
+  opacity: 0.5;
+}
+
+#create-player-dialog > form {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.name-field {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+#close-dialog {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  align-self: end;
+  padding: 4px;
+  background-color: #262626;
+  border: 2px solid lightgray;
+  color: lightgray;
+  font-size: 16px;
+}
+
+#close-dialog:hover {
+  background-color: lightgray;
+  color: #262626;
+}
+
+#close-dialog:active {
+  background-color: #8c8c8c;
+  border-color: #8c8c8c;
+}
+
+#start-btn {
+  border: 2px solid lightgray;
+  border-radius: 5px;
+  background-color: #262626;
+  color: lightgray;
+  font-size: 20px;
+  font-weight: bold;
+  width: 140px;
+  height: 38px;
+  transition: border-color 0.3s ease-in-out;
+  align-self: center;
+  margin-top: 15px;
+}
+
+#start-btn:hover {
+  border-color: lightseagreen;
+}
+
+#start-btn:active {
+  background-color: #0d5350e0;
+}
+
+input[type="text"] {
+  border: none;
+  border-radius: 5px;
+  height: 35px;
+  font-weight: bold;
+  font-size: 24px;
+}
+
+input[type="radio"] {
+  display: none;
+}
+
+.token-label {
+  display: inline-block;
+  font-size: 22px;
+  text-align: center;
+  border: 2px solid lightgray;
+  padding: 6px;
+  cursor: pointer;
+  transition: border-color 0.3s ease-in-out;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+input[type="radio"]:checked + label {
+  border-color: dodgerblue;
+}
+
+.tokens {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
 }
