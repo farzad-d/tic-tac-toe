@@ -18,8 +18,12 @@ h2 {
   font-size: 2rem;
 }
 
-.win {
+.win-message {
   color: limegreen;
+}
+
+.draw-message {
+  color: darkorange;
 }
 
 .cell {
@@ -67,7 +71,7 @@ h2 {
   background-color: #5f1900;
 }
 
-#create-player-dialog {
+#create-player-dialog:open {
   display: flex;
   flex-direction: column;
   gap: 15px;
@@ -97,24 +101,25 @@ h2 {
   gap: 10px;
 }
 
-#close-dialog {
+#close-dialog-btn {
   width: 32px;
   height: 32px;
   border-radius: 50%;
   align-self: end;
-  padding: 4px;
+  padding: 6px;
   background-color: #262626;
   border: 2px solid lightgray;
   color: lightgray;
   font-size: 16px;
+  text-align: center;
 }
 
-#close-dialog:hover {
+#close-dialog-btn:hover {
   background-color: lightgray;
   color: #262626;
 }
 
-#close-dialog:active {
+#close-dialog-btn:active {
   background-color: #8c8c8c;
   border-color: #8c8c8c;
 }
@@ -146,7 +151,7 @@ input[type="text"] {
   border-radius: 5px;
   height: 35px;
   font-weight: bold;
-  font-size: 24px;
+  font-size: 22px;
 }
 
 input[type="radio"] {
@@ -157,7 +162,7 @@ input[type="radio"] {
   display: inline-block;
   font-size: 22px;
   text-align: center;
-  border: 2px solid lightgray;
+  border: 3px solid lightgray;
   padding: 6px;
   cursor: pointer;
   transition: border-color 0.3s ease-in-out;
