@@ -43,7 +43,7 @@ h2 {
   background-color: #072849;
 }
 
-#game-board {
+#cell-container {
   display: grid;
   grid-auto-flow: column;
   grid-template: repeat(3, 120px) / repeat(3, 120px);

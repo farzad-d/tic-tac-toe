@@ -4,29 +4,29 @@ let gameState = {
   result: "",
 };
 
-const boardCreator = (function () {
+const cellContainer = document.getElementById("cell-container");
+
+function boardCreator() {
   for (let i = 0; i < 3; i++) {
     gameState.board[i] = [];
     for (let j = 0; j < 3; j++) {
       gameState.board[i].push("");
     }
   }
-})();
 
-const boardDisplay = document.getElementById("game-board");
-
-gameState.board.forEach((row, rowIndex) => {
-  row.forEach((cell, cellIndex) => {
-    const cellBtn = document.createElement("button");
-    cellBtn.classList.add("cell");
-    cellBtn.dataset.coordination = `${rowIndex}${cellIndex}`;
-    boardDisplay.appendChild(cellBtn);
+  cellContainer.replaceChildren();
+  gameState.board.forEach((row, rowIndex) => {
+    row.forEach((cell, cellIndex) => {
+      const cellBtn = document.createElement("button");
+      cellBtn.classList.add("cell");
+      cellBtn.dataset.coordination = `${rowIndex}${cellIndex}`;
+      cellContainer.appendChild(cellBtn);
+    });
   });
-});
-
-const cellBtns = document.querySelectorAll(".cell");
+}
 
 function updateBoard() {
+  const cellBtns = document.querySelectorAll(".cell");
   const flatBoard = gameState.board.flat();
   cellBtns.forEach((btn, i) => (btn.textContent = flatBoard[i]));
   gameMessage();
@@ -44,7 +44,7 @@ function createPlayer(name, token) {
 
 const form = document.querySelector("form");
 
-const playerControl = {
+const playersControl = {
   players: [],
   setPlayers() {
     const formData = new FormData(form);
@@ -66,14 +66,10 @@ const playerControl = {
 
 form.addEventListener("submit", (event) => {
   event.preventDefault();
-  playerControl.setPlayers();
+  playersControl.setPlayers();
   form.reset();
   createPlayerDialog.close();
 });
-
-function getChoice(selectedCell) {
-  playerControl.activePlayer().choice(selectedCell);
-}
 
 function resultCheck() {
   const lines = [
@@ -122,7 +118,8 @@ function resultCheck() {
   const winCheck = () =>
     lines.some((line) =>
       line.every(
-        ([x, y]) => gameState.board[x][y] === playerControl.activePlayer().token
+        ([x, y]) =>
+          gameState.board[x][y] === playersControl.activePlayer().token
       )
     );
 
@@ -141,10 +138,11 @@ function gameMessage() {
   const message = document.querySelector("h2");
 
   if (!gameState.result) {
-    message.textContent = `${playerControl.activePlayer().name}, your move`;
+    message.className = "";
+    message.textContent = `${playersControl.activePlayer().name}, your move:`;
   } else if (gameState.result === "win") {
     message.className = "win-message";
-    message.textContent = `You won ${playerControl.activePlayer().name}!`;
+    message.textContent = `You won ${playersControl.activePlayer().name}!`;
   } else {
     message.className = "draw-message";
     message.textContent = "Draw.";
@@ -152,12 +150,13 @@ function gameMessage() {
 }
 
 function gameAction(choice) {
-  getChoice(choice);
+  playersControl.activePlayer().choice(choice);
   resultCheck();
   updateBoard();
 }
 
-boardDisplay.addEventListener("click", (event) => {
+cellContainer.addEventListener("click", (event) => {
+  if (event.target === cellContainer) return;
   if (gameState.result) return;
   gameAction(event.target.dataset.coordination);
   event.target.disabled = true;
@@ -165,14 +164,24 @@ boardDisplay.addEventListener("click", (event) => {
   event.target.style.backgroundColor = "#262626";
 });
 
-const restartBtn = document.getElementById("restart-btn");
-const closeDialogBtn = document.getElementById("close-dialog-btn");
 const createPlayerDialog = document.getElementById("create-player-dialog");
 
-restartBtn.addEventListener("click", () => createPlayerDialog.showModal());
-closeDialogBtn.addEventListener("click", () => createPlayerDialog.close());
+function gameStartRestart() {
+  gameState.board = [];
+  gameState.turn = 1;
+  gameState.result = "";
+  boardCreator();
+  createPlayerDialog.showModal();
+  playersControl.setPlayers();
+}
 
-createPlayerDialog.showModal();
-playerControl.setPlayers();
+const restartBtn = document.getElementById("restart-btn");
+restartBtn.addEventListener("click", () => gameStartRestart());
 
-// todo: Make restart button functional
+const closeDialogBtn = document.getElementById("close-dialog-btn");
+closeDialogBtn.addEventListener("click", () => {
+  createPlayerDialog.close();
+  form.reset();
+});
+
+gameStartRestart();
