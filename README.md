@@ -2,4 +2,4 @@
 
 This is an exercise project for The Odin Project.
 
-[Live Preview](https://farzad-d.github.io/tic-tac-toe/)
+[Live Preview](https://farzad-d.github.io/odin-tic-tac-toe/)
